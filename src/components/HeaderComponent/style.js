@@ -7,6 +7,8 @@ background-color: #ffd400;
 align-items: center;
 gap: 16px;
 flex-wrap: nowrap;
+width: 1270px;
+padding: 10px 0;
 `
 
 export const WrapperTextHeader = styled.span`
