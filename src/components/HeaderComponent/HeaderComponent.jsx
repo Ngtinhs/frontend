@@ -10,23 +10,23 @@ import ButtonInputSearch from '../ButtonInputSearch/ButtonInputSearch';
 
 const HeaderComponent = () => {
     return (
-        <div>
+        <div style={{ width: "100%", background: "#ffd400", display: "flex", justifyContent: "center" }}>
             <WrapperHeader >
-                <Col span={6}>
+                <Col span={5}>
                     <WrapperTextHeader>
                         SHOPPUUU
                     </WrapperTextHeader>
                 </Col>
-                <Col span={12}>
+                <Col span={13}>
                     <ButtonInputSearch
                         size="large"
                         textButton="Tìm kiếm"
                         placeholder="Tìm kiếm sản phẩm ... "
                     />
                 </Col>
-                <Col span={6} style={{ display: "flex", gap: "20px", alignItems: "center" }}>
+                <Col span={6} style={{ display: "flex", gap: "54px", alignItems: "center" }}>
                     <WrapperHeaderAccount>
-                        <UserOutlined style={{ fontSize: "25px" }} />
+                        <UserOutlined style={{ fontSize: "30px" }} />
                         <div>
                             <WrapperTextHeaderSmall>Đăng nhập / Đăng ký</WrapperTextHeaderSmall>
                             <div>

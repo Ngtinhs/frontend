@@ -60,18 +60,11 @@ const NavbarComponent = () => {
             </WrapperContent>
             <WrapperLableText>Label 2</WrapperLableText>
             <WrapperContent>
-                {renderContent('checkbox', [
-                    { value: 'a', label: "A" },
-                    { value: 'b', label: "B" },
-                ])}
-            </WrapperContent>
-            <WrapperLableText>Label 3</WrapperLableText>
-            <WrapperContent>
                 {renderContent('star', [
                     3, 4, 5
                 ])}
             </WrapperContent>
-            <WrapperLableText>Label 4</WrapperLableText>
+            <WrapperLableText>Label 3</WrapperLableText>
 
             <WrapperContent>
                 {renderContent('price', [
