@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Badge, Button, Col, Popover } from 'antd';
 import { WrapperContentPopup, WrapperHeader, WrapperHeaderAccount, WrapperTextHeader, WrapperTextHeaderSmall } from './style';
 import {
@@ -19,6 +19,8 @@ const HeaderComponent = () => {
     const navigate = useNavigate()
     const user = useSelector((state) => state.user)
     const dispatch = useDispatch()
+    const [username, setUsername] = useState('')
+    const [userAvatar, setUserAvatar] = useState('')
     const [loading, setLoading] = useState(false)
 
 
@@ -34,10 +36,17 @@ const HeaderComponent = () => {
         setLoading(false)
     }
 
+    useEffect(() => {
+        setLoading(true)
+        setUsername(user?.name)
+        setUserAvatar(user?.avatar)
+        setLoading(false)
+    }, [user?.name, user?.avatar])
+
     const content = (
         <div>
+            <WrapperContentPopup onClick={() => navigate('/profile-user')}>Thông tin người dùng</WrapperContentPopup>
             <WrapperContentPopup onClick={handleLogout}>Đăng xuất</WrapperContentPopup>
-            <WrapperContentPopup>Thông tin người dùng</WrapperContentPopup>
         </div>
     );
 
@@ -60,11 +69,19 @@ const HeaderComponent = () => {
                 <Col span={6} style={{ display: "flex", gap: "54px", alignItems: "center" }}>
                     <Loading isLoading={loading}>
                         <WrapperHeaderAccount>
-                            <UserOutlined style={{ fontSize: "30px" }} />
+                            {userAvatar ? (
+                                <img src={userAvatar} alt='avatar' style={{
+                                    height: '40px',
+                                    width: '40px',
+                                    borderRadius: '50%',
+                                    objectFit: 'cover'
+                                }} />
+                            ) : <UserOutlined style={{ fontSize: "30px" }} />}
+
                             {user?.name ? (
                                 <>
                                     <Popover content={content} trigger="click">
-                                        <div style={{ cursor: 'pointer' }}>{user.name}</div>
+                                        <div style={{ cursor: 'pointer' }}>{username || user.email}</div>
                                     </Popover>
                                 </>
                             ) : (
