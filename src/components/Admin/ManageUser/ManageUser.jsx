@@ -52,6 +52,25 @@ const ManageUser = () => {
         },
     )
 
+    const mutationDeletedMany = useMutationHooks(
+        (data) => {
+            const { token, ...ids
+            } = data
+            const res = UserService.deleteManyUser(
+                ids,
+                token)
+            return res
+        },
+    )
+
+    const handleDelteManyUsers = (ids) => {
+        mutationDeletedMany.mutate({ ids: ids, token: user?.access_token }, {
+            onSettled: () => {
+                queryUser.refetch()
+            }
+        })
+    }
+
     const mutationDeleted = useMutationHooks(
         (data) => {
             const { id,
@@ -86,13 +105,13 @@ const ManageUser = () => {
     useEffect(() => {
         form.setFieldsValue(stateUserDetails)
     }, [form, stateUserDetails])
-
+    console.log('rowSelected', rowSelected)
     useEffect(() => {
-        if (rowSelected) {
+        if (rowSelected && isOpenDrawer) {
             setIsLoadingUpdate(true)
             fetchGetDetailsUser(rowSelected)
         }
-    }, [rowSelected])
+    }, [rowSelected, isOpenDrawer])
 
     const handleDetailsProduct = () => {
         setIsOpenDrawer(true)
@@ -100,6 +119,7 @@ const ManageUser = () => {
 
     const { data: dataUpdated, isLoading: isLoadingUpdated, isSuccess: isSuccessUpdated, isError: isErrorUpdated } = mutationUpdate
     const { data: dataDeleted, isLoading: isLoadingDeleted, isSuccess: isSuccessDelected, isError: isErrorDeleted } = mutationDeleted
+    const { data: dataDeletedMany, isLoading: isLoadingDeletedMany, isSuccess: isSuccessDelectedMany, isError: isErrorDeletedMany } = mutationDeletedMany
 
     const queryUser = useQuery({ queryKey: ['users'], queryFn: getAllUsers })
     const { isLoading: isLoadingUsers, data: users } = queryUser
@@ -247,6 +267,14 @@ const ManageUser = () => {
         }
     }, [isSuccessDelected])
 
+    useEffect(() => {
+        if (isSuccessDelectedMany && dataDeletedMany?.status === 'OK') {
+            message.success()
+        } else if (isErrorDeletedMany) {
+            message.error()
+        }
+    }, [isSuccessDelectedMany])
+
     const handleCloseDrawer = () => {
         setIsOpenDrawer(false);
         setStateUserDetails({
@@ -318,7 +346,7 @@ const ManageUser = () => {
         <div>
             <WrapperHeader>Quản lý người dùng</WrapperHeader>
             <div style={{ marginTop: '20px' }}>
-                <TableComponent columns={columns} isLoading={isLoadingUsers} data={dataTable} onRow={(record, rowIndex) => {
+                <TableComponent handleDelteMany={handleDelteManyUsers} columns={columns} isLoading={isLoadingUsers} data={dataTable} onRow={(record, rowIndex) => {
                     return {
                         onClick: event => {
                             setRowSelected(record._id)
@@ -361,23 +389,23 @@ const ManageUser = () => {
                         </Form.Item>
 
                         {/* <Form.Item
-                label="Image"
-                name="image"
-                rules={[{ required: true, message: 'Please input your count image!' }]}
-              >
-                <WrapperUploadFile onChange={handleOnchangeAvatarDetails} maxCount={1}>
-                  <Button >Select File</Button>
-                  {stateProductDetails?.image && (
-                    <img src={stateProductDetails?.image} style={{
-                      height: '60px',
-                      width: '60px',
-                      borderRadius: '50%',
-                      objectFit: 'cover',
-                      marginLeft: '10px'
-                    }} alt="avatar" />
-                  )}
-                </WrapperUploadFile>
-              </Form.Item> */}
+              label="Image"
+              name="image"
+              rules={[{ required: true, message: 'Please input your count image!' }]}
+            >
+              <WrapperUploadFile onChange={handleOnchangeAvatarDetails} maxCount={1}>
+                <Button >Select File</Button>
+                {stateProductDetails?.image && (
+                  <img src={stateProductDetails?.image} style={{
+                    height: '60px',
+                    width: '60px',
+                    borderRadius: '50%',
+                    objectFit: 'cover',
+                    marginLeft: '10px'
+                  }} alt="avatar" />
+                )}
+              </WrapperUploadFile>
+            </Form.Item> */}
                         <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
                             <Button type="primary" htmlType="submit">
                                 Apply
