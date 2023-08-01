@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as UserService from '../../services/UserService'
 import { resetUser } from '../../redux/slices/userSlice'
 import Loading from '../LoadingComponent/Loading';
+import { searchProduct } from '../../redux/slices/productSlice';
 
 
 
@@ -21,6 +22,7 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
     const dispatch = useDispatch()
     const [userName, setUsername] = useState('')
     const [userAvatar, setUserAvatar] = useState('')
+    const [search, setSearch] = useState('')
     const [loading, setLoading] = useState(false)
 
 
@@ -52,6 +54,10 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
             <WrapperContentPopup onClick={handleLogout}>Đăng xuất</WrapperContentPopup>
         </div>
     );
+    const onSearch = (e) => {
+        setSearch(e.target.value)
+        dispatch(searchProduct(e.target.value))
+    }
 
 
     return (
@@ -68,6 +74,7 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
                             size="large"
                             textButton="Tìm kiếm"
                             placeholder="Tìm kiếm sản phẩm ... "
+                            onChange={onSearch}
                         />
                     </Col>
                 )}
