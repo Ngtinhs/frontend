@@ -5,7 +5,7 @@ import ButtonComponent from '../../components/ButtonComponent/ButtonComponent'
 import { Image } from 'antd'
 import imglogin from '../../assets/images/logo_login.png'
 import { EyeFilled, EyeInvisibleFilled } from '@ant-design/icons'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import * as UserService from '../../services/UserService'
 import { useMutationHooks } from '../../hooks/useMutationHook'
 import Loading from '../../components/LoadingComponent/Loading'
@@ -18,6 +18,7 @@ const SignInPage = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const dispatch = useDispatch()
+    const location = useLocation()
 
     const disable = !email.length || !password.length;
 
@@ -28,7 +29,7 @@ const SignInPage = () => {
     const handleOnchangePassword = (e) => {
         setPassword(e.target.value)
     }
-    const Navigate = useNavigate()
+    const navigate = useNavigate()
 
 
     const mutation = useMutationHooks(
@@ -38,7 +39,11 @@ const SignInPage = () => {
     const { data, isLoading, isSuccess } = mutation
     useEffect(() => {
         if (isSuccess) {
-            Navigate('/')
+            if (location?.state) {
+                navigate(location?.state)
+            } else {
+                navigate('/')
+            }
             localStorage.setItem('access_token', JSON.stringify(data?.access_token))
             if (data?.access_token) {
                 const decoded = jwt_decode(data?.access_token)
@@ -57,10 +62,9 @@ const SignInPage = () => {
 
 
 
-    console.log("mutation", mutation)
 
     const handleNavigationSignUp = () => {
-        Navigate('/sign-up')
+        navigate('/sign-up')
     }
 
     const handleSignIn = () => {
