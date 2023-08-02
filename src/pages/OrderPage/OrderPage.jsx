@@ -1,5 +1,5 @@
 import { Checkbox } from 'antd'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { WrapperCountOrder, WrapperInfo, WrapperItemOrder, WrapperLeft, WrapperListOrder, WrapperPriceDiscount, WrapperRight, WrapperStyleHeader, WrapperTotal } from './style';
 import { DeleteOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons'
 import imag from '../../assets/images/hinh1.png'
@@ -7,6 +7,7 @@ import ButtonComponent from '../../components/ButtonComponent/ButtonComponent';
 import { useDispatch, useSelector } from 'react-redux';
 import { decreaseAmount, increaseAmount, removeAllOrderProduct, removeOrderProduct } from '../../redux/slices/orderSlice';
 import { WrapperInputNumber } from '../../components/ProductDetailscomponent/style';
+import { convertPrice } from '../../utils';
 
 const OrderPage = () => {
     const order = useSelector((state) => state.order)
@@ -44,6 +45,39 @@ const OrderPage = () => {
             setListChecked([])
         }
     }
+
+
+    const priceMemo = useMemo(() => {
+        const result = order?.orderItems?.reduce((total, cur) => {
+            return total + ((cur.price * cur.amount))
+        }, 0)
+        return result
+    }, [order])
+
+    const priceDiscountMemo = useMemo(() => {
+        const result = order?.orderItems?.reduce((total, cur) => {
+            return total + ((cur.discount * cur.amount))
+        }, 0)
+        if (Number(result)) {
+            return result
+        }
+        return 0
+    }, [order])
+
+    const diliveryPriceMemo = useMemo(() => {
+        if (priceMemo > 200000) {
+            return 10000
+        } else if (priceMemo === 0) {
+            return 0
+        } else {
+            return 20000
+        }
+    }, [priceMemo])
+
+
+    const totalPriceMemo = useMemo(() => {
+        return Number(priceMemo) - Number(priceDiscountMemo) + Number(diliveryPriceMemo)
+    }, [priceMemo, priceDiscountMemo, diliveryPriceMemo])
 
     const handleRemoveAllOrder = () => {
         if (listChecked?.length > 1) {
@@ -85,7 +119,7 @@ const OrderPage = () => {
                                         </div>
                                         <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                                             <span>
-                                                <span style={{ fontSize: '13px', color: '#242424' }}>{order?.price}</span>
+                                                <span style={{ fontSize: '13px', color: '#242424' }}>{convertPrice(order?.price)}</span>
                                             </span>
                                             <WrapperCountOrder>
                                                 <button style={{ border: 'none', background: 'transparent', cursor: 'pointer' }} onClick={() => handleChangeCount('decrease', order?.product)}>
@@ -96,7 +130,7 @@ const OrderPage = () => {
                                                     <PlusOutlined style={{ color: '#000', fontSize: '10px' }} />
                                                 </button>
                                             </WrapperCountOrder>
-                                            <span style={{ color: 'rgb(255, 66, 78)', fontSize: '13px', fontWeight: 500 }}>{order?.price * order?.amount}</span>
+                                            <span style={{ color: 'rgb(255, 66, 78)', fontSize: '13px', fontWeight: 500 }}>{convertPrice(order?.price * order?.amount)}</span>
                                             <DeleteOutlined style={{ cursor: 'pointer' }} onClick={() => handleDeleteOrder(order?.product)} />
                                         </div>
                                     </WrapperItemOrder>
@@ -109,25 +143,21 @@ const OrderPage = () => {
                             <WrapperInfo>
                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                                     <span>Tạm tính</span>
-                                    <span style={{ color: '#000', fontSize: '14px', fontWeight: 'bold' }}>0</span>
+                                    <span style={{ color: '#000', fontSize: '14px', fontWeight: 'bold' }}>{convertPrice(priceMemo)}</span>
                                 </div>
                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                                     <span>Giảm giá</span>
-                                    <span style={{ color: '#000', fontSize: '14px', fontWeight: 'bold' }}>0</span>
-                                </div>
-                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                                    <span>Thuế</span>
-                                    <span style={{ color: '#000', fontSize: '14px', fontWeight: 'bold' }}>0</span>
+                                    <span style={{ color: '#000', fontSize: '14px', fontWeight: 'bold' }}>{`${priceDiscountMemo} %`}</span>
                                 </div>
                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                                     <span>Phí giao hàng</span>
-                                    <span style={{ color: '#000', fontSize: '14px', fontWeight: 'bold' }}>0</span>
+                                    <span style={{ color: '#000', fontSize: '14px', fontWeight: 'bold' }}>{convertPrice(diliveryPriceMemo)}</span>
                                 </div>
                             </WrapperInfo>
                             <WrapperTotal>
                                 <span>Tổng tiền</span>
                                 <span style={{ display: 'flex', flexDirection: 'column' }}>
-                                    <span style={{ color: 'rgb(254, 56, 52)', fontSize: '24px', fontWeight: 'bold' }}>0213</span>
+                                    <span style={{ color: 'rgb(254, 56, 52)', fontSize: '24px', fontWeight: 'bold' }}>{convertPrice(totalPriceMemo)}</span>
                                     <span style={{ color: '#000', fontSize: '11px' }}>(Đã bao gồm VAT nếu có)</span>
                                 </span>
                             </WrapperTotal>

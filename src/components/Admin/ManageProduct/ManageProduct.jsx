@@ -33,7 +33,8 @@ const ManageProduct = () => {
         image: '',
         type: '',
         countInStock: '',
-        newType: ''
+        newType: '',
+        discount: '',
     })
     const [stateProductDetails, setStateProductDetails] = useState({
         name: '',
@@ -42,7 +43,8 @@ const ManageProduct = () => {
         rating: '',
         image: '',
         type: '',
-        countInStock: ''
+        countInStock: '',
+        discount: '',
     })
 
     const [form] = Form.useForm();
@@ -55,7 +57,7 @@ const ManageProduct = () => {
                 rating,
                 image,
                 type,
-                countInStock } = data
+                countInStock, discount } = data
             const res = ProductService.createProduct({
                 name,
                 price,
@@ -63,7 +65,8 @@ const ManageProduct = () => {
                 rating,
                 image,
                 type,
-                countInStock
+                countInStock,
+                discount
             })
             return res
         }
@@ -119,7 +122,8 @@ const ManageProduct = () => {
                 rating: res?.data?.rating,
                 image: res?.data?.image,
                 type: res?.data?.type,
-                countInStock: res?.data?.countInStock
+                countInStock: res?.data?.countInStock,
+                discount: res?.data?.discount
             })
         }
         setIsLoadingUpdate(false)
@@ -389,7 +393,8 @@ const ManageProduct = () => {
             rating: '',
             image: '',
             type: '',
-            countInStock: ''
+            countInStock: '',
+            discount: '',
         })
         form.resetFields()
     };
@@ -403,6 +408,7 @@ const ManageProduct = () => {
             image: stateProduct.image,
             type: stateProduct.type === 'add_type' ? stateProduct.newType : stateProduct.type,
             countInStock: stateProduct.countInStock,
+            discount: stateProduct.discount
         }
         mutation.mutate(params, {
             onSettled: () => {
@@ -547,6 +553,13 @@ const ManageProduct = () => {
                             <InputComponent value={stateProduct.rating} onChange={handleOnchange} name="rating" />
                         </Form.Item>
                         <Form.Item
+                            label="Discount"
+                            name="discount"
+                            rules={[{ required: true, message: 'Please input your discount of product!' }]}
+                        >
+                            <InputComponent value={stateProduct.discount} onChange={handleOnchange} name="discount" />
+                        </Form.Item>
+                        <Form.Item
                             label="Image"
                             name="image"
                             rules={[{ required: true, message: 'Please input your count image!' }]}
@@ -625,6 +638,13 @@ const ManageProduct = () => {
                             rules={[{ required: true, message: 'Please input your count rating!' }]}
                         >
                             <InputComponent value={stateProductDetails.rating} onChange={handleOnchangeDetails} name="rating" />
+                        </Form.Item>
+                        <Form.Item
+                            label="Discount"
+                            name="discount"
+                            rules={[{ required: true, message: 'Please input your discount of product!' }]}
+                        >
+                            <InputComponent value={stateProductDetails.discount} onChange={handleOnchangeDetails} name="discount" />
                         </Form.Item>
                         <Form.Item
                             label="Image"
