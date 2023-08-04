@@ -1,21 +1,25 @@
-import { Checkbox, Form, message } from 'antd'
-import React, { useEffect, useMemo, useState } from 'react'
+import { Checkbox, Form } from 'antd'
+import React, { useEffect, useState, useMemo } from 'react'
 import { WrapperCountOrder, WrapperInfo, WrapperItemOrder, WrapperLeft, WrapperListOrder, WrapperRight, WrapperStyleHeader, WrapperTotal } from './style';
 import { DeleteOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons'
+import { WrapperInputNumber } from '../../components/ProductDetailscomponent/style';
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent';
 import { useDispatch, useSelector } from 'react-redux';
 import { decreaseAmount, increaseAmount, removeAllOrderProduct, removeOrderProduct, selectedOrder } from '../../redux/slices/orderSlice';
-import { WrapperInputNumber } from '../../components/ProductDetailscomponent/style';
 import { convertPrice } from '../../utils';
 import ModalComponent from '../../components/ModalComponent/ModalComponent';
-import Loading from '../../components/LoadingComponent/Loading';
 import InputComponent from '../../components/InputComponent/InputComponent';
 import { useMutationHooks } from '../../hooks/useMutationHook';
 import * as  UserService from '../../services/UserService'
+import Loading from '../../components/LoadingComponent/Loading';
+import * as message from '../../components/Message/Message'
+import { updateUser } from '../../redux/slices/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 const OrderPage = () => {
     const order = useSelector((state) => state.order)
     const user = useSelector((state) => state.user)
+
     const [listChecked, setListChecked] = useState([])
     const [isOpenModalUpdateInfo, setIsOpenModalUpdateInfo] = useState(false)
     const [stateUserDetails, setStateUserDetails] = useState({
@@ -25,6 +29,9 @@ const OrderPage = () => {
         city: ''
     })
     const [form] = Form.useForm();
+
+    const navigate = useNavigate()
+
     const dispatch = useDispatch()
     const onChange = (e) => {
         if (listChecked.includes(e.target.value)) {
@@ -78,6 +85,9 @@ const OrderPage = () => {
         }
     }, [isOpenModalUpdateInfo])
 
+    const handleChangeAddress = () => {
+        setIsOpenModalUpdateInfo(true)
+    }
 
     const priceMemo = useMemo(() => {
         const result = order?.orderItemsSlected?.reduce((total, cur) => {
@@ -106,7 +116,6 @@ const OrderPage = () => {
         }
     }, [priceMemo])
 
-
     const totalPriceMemo = useMemo(() => {
         return Number(priceMemo) - Number(priceDiscountMemo) + Number(diliveryPriceMemo)
     }, [priceMemo, priceDiscountMemo, diliveryPriceMemo])
@@ -116,13 +125,17 @@ const OrderPage = () => {
             dispatch(removeAllOrderProduct({ listChecked }))
         }
     }
+
     const handleAddCard = () => {
         if (!order?.orderItemsSlected?.length) {
             message.error('Vui lòng chọn sản phẩm')
         } else if (!user?.phone || !user.address || !user.name || !user.city) {
             setIsOpenModalUpdateInfo(true)
+        } else {
+            navigate('/payment')
         }
     }
+
     const mutationUpdate = useMutationHooks(
         (data) => {
             const { id,
@@ -147,19 +160,17 @@ const OrderPage = () => {
         form.resetFields()
         setIsOpenModalUpdateInfo(false)
     }
-
     const handleUpdateInforUser = () => {
         const { name, address, city, phone } = stateUserDetails
         if (name && address && city && phone) {
             mutationUpdate.mutate({ id: user?.id, token: user?.access_token, ...stateUserDetails }, {
                 onSuccess: () => {
-                    dispatch(UserService.updateUser({ name, address, city, phone }))
+                    dispatch(updateUser({ name, address, city, phone }))
                     setIsOpenModalUpdateInfo(false)
                 }
             })
         }
     }
-
 
     const handleOnchangeDetails = (e) => {
         setStateUserDetails({
@@ -167,7 +178,6 @@ const OrderPage = () => {
             [e.target.name]: e.target.value
         })
     }
-
     return (
         <div style={{ background: '#f5f5fa', with: '100%', height: '100vh' }}>
             <div style={{ height: '100%', width: '1270px', margin: '0 auto' }}>
@@ -224,6 +234,13 @@ const OrderPage = () => {
                     <WrapperRight>
                         <div style={{ width: '100%' }}>
                             <WrapperInfo>
+                                <div>
+                                    <span>Địa chỉ: </span>
+                                    <span style={{ fontWeight: 'bold' }}>{`${user?.address} ${user?.city}`} </span>
+                                    <span onClick={handleChangeAddress} style={{ color: 'blue', cursor: 'pointer' }}>Thay đổi</span>
+                                </div>
+                            </WrapperInfo>
+                            <WrapperInfo>
                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                                     <span>Tạm tính</span>
                                     <span style={{ color: '#000', fontSize: '14px', fontWeight: 'bold' }}>{convertPrice(priceMemo)}</span>
@@ -263,7 +280,6 @@ const OrderPage = () => {
                     </WrapperRight>
                 </div>
             </div>
-
             <ModalComponent title="Cập nhật thông tin giao hàng" open={isOpenModalUpdateInfo} onCancel={handleCancleUpdate} onOk={handleUpdateInforUser}>
                 <Loading isLoading={isLoading}>
                     <Form
