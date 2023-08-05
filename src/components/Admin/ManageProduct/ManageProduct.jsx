@@ -1,4 +1,4 @@
-import { Button, Form, Modal, Select, Space } from 'antd'
+import { Button, Form, Select, Space } from 'antd'
 import { PlusOutlined, DeleteOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons'
 import React, { useRef } from 'react'
 import { WrapperHeader, WrapperUploadFile } from './style'
@@ -25,7 +25,7 @@ const ManageProduct = () => {
     const user = useSelector((state) => state?.user)
     const searchInput = useRef(null);
 
-    const [stateProduct, setStateProduct] = useState({
+    const inittial = () => ({
         name: '',
         price: '',
         description: '',
@@ -36,16 +36,8 @@ const ManageProduct = () => {
         newType: '',
         discount: '',
     })
-    const [stateProductDetails, setStateProductDetails] = useState({
-        name: '',
-        price: '',
-        description: '',
-        rating: '',
-        image: '',
-        type: '',
-        countInStock: '',
-        discount: '',
-    })
+    const [stateProduct, setStateProduct] = useState(inittial())
+    const [stateProductDetails, setStateProductDetails] = useState(inittial())
 
     const [form] = Form.useForm();
 
@@ -130,8 +122,14 @@ const ManageProduct = () => {
     }
 
     useEffect(() => {
-        form.setFieldsValue(stateProductDetails)
-    }, [form, stateProductDetails])
+        if (!isModalOpen) {
+            form.setFieldsValue(stateProductDetails)
+        } else {
+            form.setFieldsValue(inittial())
+        }
+    }, [form, stateProductDetails, isModalOpen])
+
+
 
     useEffect(() => {
         if (rowSelected && isOpenDrawer) {
