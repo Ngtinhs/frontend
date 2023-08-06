@@ -118,7 +118,7 @@ const SignInPage = () => {
                                 borderRadius: "4px",
                                 margin: "26px 0 10px"
                             }}
-                            textButton={"Đăng nhập"}>
+                            textbutton={"Đăng nhập"}>
                         </ButtonComponent>
                     </Loading>
                     <p><WrapperTextLight>

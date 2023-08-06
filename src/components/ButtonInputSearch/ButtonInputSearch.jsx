@@ -5,7 +5,7 @@ import {
 import InputComponent from '../InputComponent/InputComponent';
 import ButtonComponent from '../ButtonComponent/ButtonComponent';
 const ButtonInputSearch = (props) => {
-    const { size, placeholder, textButton } = props
+    const { size, placeholder, textbutton } = props
     return (
         <div style={{ display: "flex" }}>
             <InputComponent size={size} placeholder={placeholder}
@@ -18,7 +18,7 @@ const ButtonInputSearch = (props) => {
             <ButtonComponent size={size} style={{
                 backgroundColor: "rgba(255,172,10,.6)", border: "none", borderRadius: "unset", color: "white"
             }} icon={<SearchOutlined />}
-                textButton={textButton}
+                textbutton={textbutton}
             />
         </div>
     )

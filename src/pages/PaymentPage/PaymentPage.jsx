@@ -107,7 +107,8 @@ const PaymentPage = () => {
                     itemsPrice: priceMemo,
                     shippingPrice: diliveryPriceMemo,
                     totalPrice: totalPriceMemo,
-                    user: user?.id
+                    user: user?.id,
+                    email: user?.email
                 }
             )
         }
@@ -186,7 +187,8 @@ const PaymentPage = () => {
                 totalPrice: totalPriceMemo,
                 user: user?.id,
                 isPaid: true,
-                paidAt: details.update_time
+                paidAt: details.update_time,
+                email: user?.email
             }
         )
     }
@@ -243,7 +245,7 @@ const PaymentPage = () => {
             <Loading isLoading={isLoadingAddOrder}>
                 <div style={{ height: '100%', width: '1270px', margin: '0 auto' }}>
                     <h3>Thanh toán</h3>
-                    <ditoánv style={{ display: 'flex', justifyContent: 'center' }}>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <WrapperLeft>
                             <WrapperInfo>
                                 <div>
@@ -298,7 +300,7 @@ const PaymentPage = () => {
                             {payment === 'paypal' && sdkReady ? (
                                 <div style={{ width: '320px' }}>
                                     <PayPalButton
-                                        amount="0.01"
+                                        amount={Math.round(totalPriceMemo / 30000)}
                                         // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
                                         onSuccess={onSuccessPaypal}
                                         onError={() => {
@@ -317,12 +319,12 @@ const PaymentPage = () => {
                                         border: 'none',
                                         borderRadius: '4px'
                                     }}
-                                    textButton={'Đặt hàng'}
-                                    styleTextButton={{ color: '#fff', fontSize: '15px', fontWeight: '700' }}
+                                    textbutton={'Đặt hàng'}
+                                    styletextbutton={{ color: '#fff', fontSize: '15px', fontWeight: '700' }}
                                 ></ButtonComponent>
                             )}
                         </WrapperRight>
-                    </ditoánv>
+                    </div>
                 </div>
                 <ModalComponent title="Cập nhật thông tin giao hàng" open={isOpenModalUpdateInfo} onCancel={handleCancleUpdate} onOk={handleUpdateInforUser}>
                     <Loading isLoading={isLoading}>

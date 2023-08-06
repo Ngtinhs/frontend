@@ -30,7 +30,6 @@ const ProfilePage = () => {
 
     const dispatch = useDispatch()
     const { data, isLoading, isSuccess, isError } = mutation
-    console.log('data', data)
 
     useEffect(() => {
         setName(user?.name)
@@ -104,7 +103,7 @@ const ProfilePage = () => {
                                 borderRadius: "4px",
                                 padding: '2px 6px 6px'
                             }}
-                            textButton={"Cập nhật"}>
+                            textbutton={"Cập nhật"}>
                         </ButtonComponent>
                     </WrapperInput>
                     <WrapperInput>
@@ -120,7 +119,7 @@ const ProfilePage = () => {
                                 borderRadius: "4px",
                                 padding: '2px 6px 6px'
                             }}
-                            textButton={"Cập nhật"}>
+                            textbutton={"Cập nhật"}>
                         </ButtonComponent>
                     </WrapperInput>
                     <WrapperInput>
@@ -136,7 +135,7 @@ const ProfilePage = () => {
                                 borderRadius: "4px",
                                 padding: '2px 6px 6px'
                             }}
-                            textButton={"Cập nhật"}>
+                            textbutton={"Cập nhật"}>
                         </ButtonComponent>
                     </WrapperInput>
                     <WrapperInput>
@@ -152,7 +151,7 @@ const ProfilePage = () => {
                                 borderRadius: "4px",
                                 padding: '2px 6px 6px'
                             }}
-                            textButton={"Cập nhật"}>
+                            textbutton={"Cập nhật"}>
                         </ButtonComponent>
                     </WrapperInput>
                     <WrapperInput>
@@ -179,7 +178,7 @@ const ProfilePage = () => {
                                 borderRadius: "4px",
                                 padding: '2px 6px 6px'
                             }}
-                            textButton={"Cập nhật"}>
+                            textbutton={"Cập nhật"}>
                         </ButtonComponent>
                     </WrapperInput>
                 </WrapperContentProfile>
