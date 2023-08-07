@@ -2,7 +2,7 @@ import React from 'react'
 
 const HeaderLeft = () => {
   return (
-    <div>Shoppuu</div>
+    <div>SHOPPUU</div>
   )
 }
 

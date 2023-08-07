@@ -45,6 +45,8 @@ const HomePage = () => {
   }
 
   const { isLoading, data: products, isPreviousData } = useQuery(['products', limit, searchDebounce], fetchProductAll, { retry: 3, retryDelay: 1000, keepPreviousData: true })
+  const { data: productsnew } = useQuery(['productsnew', searchDebounce], fetchProductAll, { retry: 3, retryDelay: 1000, keepPreviousData: true })
+  console.log("productsnew", productsnew)
 
   useEffect(() => {
     fetchAllTypeProduct()
@@ -129,7 +131,7 @@ const HomePage = () => {
                 <TypeProduct style={{ textAlign: 'center', background: 'none', textTransform: 'uppercase', fontWeight: 'bold', fontSize: '16px', color: 'inherit' }} name={item} />
 
                 <WrapperProducts style={{ display: "flex" }}>
-                  {products?.data
+                  {productsnew?.data
                     ?.filter((product) => product.type === item)
                     .map((product) => (
                       <CardComponent
