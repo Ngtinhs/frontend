@@ -8,7 +8,7 @@ export const WrapperSliderStyle = styled(Slider)`
         z-index: 10;
         &::before {
             font-size: 40px;
-            color: #fff;
+            color: rgb(81, 81, 84);
         }
     }
     & .slick-arrow.slick-next {
@@ -17,7 +17,7 @@ export const WrapperSliderStyle = styled(Slider)`
         z-index: 10;
         &::before {
             font-size: 40px;
-            color: #fff;
+            color: rgb(81, 81, 84);
         }
     }
     & .slick-dots {
