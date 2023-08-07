@@ -1,6 +1,7 @@
 import React from 'react';
 import HeaderComponent from '../HeaderCompoent/HeaderComponent';
 import FooterComponent from '../FooterComponent/FooterComponent';
+import ScrollToTopButton from '../ScrollToTopComponent/ScrollToTopComponent';
 
 const DefaultComponent = ({ children }) => {
   return (
@@ -9,6 +10,7 @@ const DefaultComponent = ({ children }) => {
         <HeaderComponent />
       </div>
       <div style={{ marginTop: '60px' }}>
+        <ScrollToTopButton showBelow={250} />
         {children}
       </div>
       <FooterComponent />
