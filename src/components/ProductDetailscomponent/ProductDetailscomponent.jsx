@@ -4,6 +4,7 @@ import imageProductSmall from '../../assets/images/imagesmall.webp'
 import { WrapperStyleImageSmall, WrapperStyleColImage, WrapperStyleNameProduct, WrapperStyleTextSell, WrapperPriceProduct, WrapperPriceTextProduct, WrapperAddressProduct, WrapperQualityProduct, WrapperInputNumber, WrapperBtnQualityProduct } from './style'
 import { PlusOutlined, MinusOutlined } from '@ant-design/icons'
 import ButtonComponent from '../ButtonComponent/ButtonComponent'
+import * as ProductService from '../../services/ProductService'
 import { useQuery } from '@tanstack/react-query'
 import Loading from '../LoadingComponent/Loading'
 import { useState } from 'react'
@@ -15,9 +16,8 @@ import { useEffect } from 'react'
 import * as message from '../Message/Message'
 import LikeButtonComponent from '../LikeButtonComponent/LikeButtonComponent'
 import CommentComponent from '../CommentComponent/CommentComponent'
-import { useMemo } from 'react'
 
-const ProductDetailsComponent = ({ idProduct, fetchGetDetailsProduct }) => {
+const ProductDetailsComponent = ({ idProduct }) => {
     const [numProduct, setNumProduct] = useState(1)
     const user = useSelector((state) => state.user)
     const order = useSelector((state) => state.order)
@@ -30,6 +30,13 @@ const ProductDetailsComponent = ({ idProduct, fetchGetDetailsProduct }) => {
         setNumProduct(Number(value))
     }
 
+    const fetchGetDetailsProduct = async (context) => {
+        const id = context?.queryKey && context?.queryKey[1]
+        if (id) {
+            const res = await ProductService.getDetailsProduct(id)
+            return res.data
+        }
+    }
 
     useEffect(() => {
         initFacebookSDK()
