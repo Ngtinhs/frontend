@@ -17,8 +17,8 @@ import * as message from '../../components/Message/Message'
 import { updateUser } from '../../redux/slides/userSlide';
 import { useNavigate } from 'react-router-dom';
 import StepComponent from '../../components/StepConponent/StepComponent';
-import { WrapperInputNumber } from '../../components/ProductDetailsComponent/style';
 import HelmetComponent from '../../components/HelmetComponent/HelmetComponent';
+import { WrapperInputNumber } from '../../components/ProductDetailsComponent/style';
 
 const OrderPage = () => {
   const order = useSelector((state) => state.order)
