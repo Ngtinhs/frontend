@@ -7,6 +7,7 @@ export const WrapperTypeProduct = styled.div`
     gap: 24px;
     justify-content: flex-start;
     height: 44px;
+    backgroundColor: #ccc;
 `
 
 export const WrapperButtonMore = styled(ButtonComponent)`
@@ -41,3 +42,7 @@ export const WrapperProducts = styled.div`
     margin-top:20px;
     flex-wrap: wrap;
 `
+
+export const WrapperTypeProductItems = styled.div`
+`
+
