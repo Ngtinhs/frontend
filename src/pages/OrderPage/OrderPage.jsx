@@ -17,8 +17,7 @@ import { updateUser } from '../../redux/slides/userSlide';
 import { useNavigate } from 'react-router-dom';
 import StepComponent from '../../components/StepConponent/StepComponent';
 import HelmetComponent from '../../components/HelmetComponent/HelmetComponent';
-import { CustomCheckbox, WrapperCountOrder, WrapperInfo, WrapperItemOrder, WrapperLeft, WrapperListOrder, WrapperRight, WrapperStyleHeader, WrapperStyleHeaderDilivery, WrapperTotal } from './style';
-import { WrapperInputNumber } from '../../components/ProductDetailsComponent/stylenew';
+import { CustomCheckbox, WrapperCountOrder, WrapperInfo, WrapperInputNumber, WrapperItemOrder, WrapperLeft, WrapperListOrder, WrapperRight, WrapperStyleHeader, WrapperStyleHeaderDilivery, WrapperTotal } from './style';
 
 const OrderPage = () => {
   const order = useSelector((state) => state.order)
