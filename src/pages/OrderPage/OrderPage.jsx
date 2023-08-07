@@ -1,6 +1,5 @@
 import { Checkbox, Form } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { CustomCheckbox, WrapperCountOrder, WrapperInfo, WrapperItemOrder, WrapperLeft, WrapperListOrder, WrapperRight, WrapperStyleHeader, WrapperStyleHeaderDilivery, WrapperTotal } from './style';
 import { DeleteOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons'
 
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent';
@@ -18,7 +17,8 @@ import { updateUser } from '../../redux/slides/userSlide';
 import { useNavigate } from 'react-router-dom';
 import StepComponent from '../../components/StepConponent/StepComponent';
 import HelmetComponent from '../../components/HelmetComponent/HelmetComponent';
-import { WrapperInputNumber } from '../../components/ProductDetailsComponent/style';
+import { CustomCheckbox, WrapperCountOrder, WrapperInfo, WrapperItemOrder, WrapperLeft, WrapperListOrder, WrapperRight, WrapperStyleHeader, WrapperStyleHeaderDilivery, WrapperTotal } from './style';
+import { WrapperInputNumber } from '../../components/ProductDetailsComponent/stylenew';
 
 const OrderPage = () => {
   const order = useSelector((state) => state.order)
