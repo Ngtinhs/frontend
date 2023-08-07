@@ -1,11 +1,9 @@
 import React from 'react'
 
 const ProductsPage = () => {
-    return (
-        <div>
-            hello
-        </div>
-    )
+  return (
+    <div>ProductsPage</div>
+  )
 }
 
 export default ProductsPage

@@ -4,11 +4,11 @@ import HomePage from "../pages/HomePage/HomePage";
 import MyOrderPage from "../pages/MyOrder/MyOrder";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 import OrderPage from "../pages/OrderPage/OrderPage";
-import OrderSuccess from "../pages/OrderSuccess/OrderSuccess";
+import OrderSucess from "../pages/OrderSuccess/OrderSuccess";
 import PaymentPage from "../pages/PaymentPage/PaymentPage";
-import ProductdetailPage from "../pages/ProductdetailPage/ProductdetailPage";
+import ProductDetailsPage from "../pages/ProductDetailsPage/ProductDetailsPage";
 import ProductsPage from "../pages/ProductsPage/ProductsPage";
-import Profile from "../pages/ProfilePage/ProfilePage";
+import ProfilePage from "../pages/Profile/ProfilePage";
 import SignInPage from "../pages/SignInPage/SignInPage";
 import SignUpPage from "../pages/SignUpPage/SignUpPage";
 import TypeProductPage from "../pages/TypeProductPage/TypeProductPage";
@@ -41,7 +41,7 @@ export const routes = [
     },
     {
         path: '/orderSuccess',
-        page: OrderSuccess,
+        page: OrderSucess,
         isShowHeader: true
     },
     {
@@ -66,22 +66,22 @@ export const routes = [
     },
     {
         path: '/product-details/:id',
-        page: ProductdetailPage,
+        page: ProductDetailsPage,
         isShowHeader: true
     },
     {
         path: '/profile-user',
-        page: Profile,
+        page: ProfilePage,
         isShowHeader: true
     },
     {
         path: '/system/admin',
         page: AdminPage,
         isShowHeader: false,
-        isPrivate: true
+        isPrivated: true
     },
     {
         path: '*',
-        page: NotFoundPage,
-    },
+        page: NotFoundPage
+    }
 ]
