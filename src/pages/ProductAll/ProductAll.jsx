@@ -46,8 +46,8 @@ const ProductAll = () => {
         <Loading isLoading={isLoading || loading}>
             <HelmetComponent title={'Tất cả sản phẩm'} />
             <div style={{ width: '100%', background: '#efefef', height: 'auto' }}>
-                <div style={{ width: '1270px', height: '1000px', margin: '0 auto' }} >
-                    <h4><span style={{ cursor: 'pointer', fontWeight: 'bold' }} onClick={() => { navigate('/') }}>Trang chủ</span>  Tất cả sản phẩm</h4>
+                <div style={{ width: '1270px', height: 'auto', margin: '0 auto', padding: "20px 0" }} >
+                    <h4><span style={{ cursor: 'pointer', fontWeight: 'bold' }} onClick={() => { navigate('/') }}>Trang chủ</span> - Tất cả sản phẩm</h4>
                     <WrapperProducts>
                         {products?.data?.map((product) => {
                             return (

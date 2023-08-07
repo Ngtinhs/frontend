@@ -25,7 +25,7 @@ const HomePage = () => {
   const searchProduct = useSelector((state) => state?.product?.search)
   const searchDebounce = useDebounce(searchProduct, 500)
   const [loading, setLoading] = useState(false)
-  const [limit, setLimit] = useState(6)
+  const [limit, setLimit] = useState(12)
   const [typeProducts, setTypeProducts] = useState([])
 
   const fetchProductAll = async (context) => {
@@ -71,7 +71,7 @@ const HomePage = () => {
           })}
         </WrapperTypeProduct>
       </div>
-      <div className='body' style={{ width: '100%', backgroundColor: '#efefef', height: 'auto' }}>
+      <div className='body' style={{ width: '100%', backgroundColor: '#efefef', height: 'auto', paddingBottom: "20px" }}>
         <div id="container" style={{ height: 'auto', width: '1270px', margin: '0 auto' }}>
           <SliderComponent arrImages={[slider1, slider2, slider3, slider4, slider5]} />
 

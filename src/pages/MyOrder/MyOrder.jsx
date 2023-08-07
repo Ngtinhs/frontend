@@ -89,7 +89,7 @@ const MyOrderPage = () => {
     <Loading isLoading={isLoading || isLoadingCancel}>
       <HelmetComponent title={`Đơn hàng của tôi`} />
       <WrapperContainer>
-        <div style={{ height: '100%', width: '1270px', margin: '0 auto' }}>
+        <div style={{ height: '100%', width: '1270px', margin: '0 auto', padding: "20px 0" }}>
           <h4>Đơn hàng của tôi</h4>
           <WrapperListOrder>
             {data?.map((order) => {

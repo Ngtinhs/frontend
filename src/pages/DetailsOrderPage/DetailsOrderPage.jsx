@@ -37,8 +37,8 @@ const DetailsOrderPage = () => {
   return (
     <Loading isLoading={isLoading}>
       <HelmetComponent title={`Chi tiết đơn đặt hàng`} />
-      <div style={{ width: '100%', height: '100vh', background: '#f5f5fa' }}>
-        <div style={{ width: '1270px', margin: '0 auto', height: '1270px' }}>
+      <div style={{ width: '100%', height: 'auto', background: '#f5f5fa' }}>
+        <div style={{ width: '1270px', margin: '0 auto', padding: "20px 0" }}>
           <h4>Chi tiết đơn hàng</h4>
           <WrapperHeaderUser>
             <WrapperInfoUser>
