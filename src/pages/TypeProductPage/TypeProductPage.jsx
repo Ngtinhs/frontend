@@ -3,7 +3,7 @@ import NavBarComponent from '../../components/NavBarComponentt/NavBarComponent'
 import CardComponent from '../../components/CardComponent/CardComponent'
 import { Col, Pagination, Row } from 'antd'
 import { WrapperNavbar, WrapperProducts } from './style'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import * as ProductService from '../../services/ProductService'
 import { useEffect } from 'react'
 import { useState } from 'react'
@@ -47,11 +47,14 @@ const TypeProductPage = () => {
     const onChange = (current, pageSize) => {
         setPanigate({ ...panigate, page: current - 1, limit: pageSize })
     }
+    const navigate = useNavigate()
+
     return (
         <Loading isLoading={loading}>
             <HelmetComponent title={`${state}`} />
-            <div style={{ width: '100%', background: '#efefef', height: 'calc(100vh - 64px)' }}>
-                <div style={{ width: '1270px', margin: '0 auto', height: '100%' }}>
+            <div style={{ width: '100%', background: '#efefef', height: 'auto' }}>
+                <div style={{ width: '1270px', margin: '0 auto', height: 'auto' }}>
+                    <h4 style={{ paddingTop: "10px" }}><span style={{ cursor: 'pointer', fontWeight: 'bold', }} onClick={() => { navigate('/') }}>Trang chủ</span> - Danh mục {`${state}`} </h4>
                     <Row style={{ flexWrap: 'nowrap', paddingTop: '10px', height: 'calc(100% - 20px)' }}>
                         <WrapperNavbar span={4} >
                             <NavBarComponent />
@@ -82,7 +85,7 @@ const TypeProductPage = () => {
                                     )
                                 })}
                             </WrapperProducts>
-                            <Pagination defaultCurrent={panigate.page + 1} total={panigate?.total} onChange={onChange} style={{ textAlign: 'center', marginTop: '10px' }} />
+                            <Pagination defaultCurrent={panigate.page + 1} total={panigate?.total} onChange={onChange} style={{ textAlign: 'center', marginTop: '10px', padding: "20px 0" }} />
                         </Col>
                     </Row>
                 </div>
