@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { CustomCheckbox, WrapperCountOrder, WrapperInfo, WrapperItemOrder, WrapperLeft, WrapperListOrder, WrapperRight, WrapperStyleHeader, WrapperStyleHeaderDilivery, WrapperTotal } from './style';
 import { DeleteOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons'
 
-import { WrapperInputNumber } from '../../components/ProductDetailsComponent/style';
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent';
 import { useDispatch, useSelector } from 'react-redux';
 import { decreaseAmount, increaseAmount, removeAllOrderProduct, removeOrderProduct, selectedOrder } from '../../redux/slides/orderSlide';
@@ -18,6 +17,8 @@ import * as message from '../../components/Message/Message'
 import { updateUser } from '../../redux/slides/userSlide';
 import { useNavigate } from 'react-router-dom';
 import StepComponent from '../../components/StepConponent/StepComponent';
+import { WrapperInputNumber } from '../../components/ProductDetailsComponent/style';
+import HelmetComponent from '../../components/HelmetComponent/HelmetComponent';
 
 const OrderPage = () => {
   const order = useSelector((state) => state.order)
@@ -201,6 +202,7 @@ const OrderPage = () => {
   ]
   return (
     <div style={{ background: '#f5f5fa', with: '100%', height: '100vh' }}>
+      <HelmetComponent title={`Trang đặt hàng`} />
       <div style={{ height: '100%', width: '1270px', margin: '0 auto' }}>
         <h3 style={{ fontWeight: 'bold' }}>Giỏ hàng</h3>
         <div style={{ display: 'flex', justifyContent: 'center' }}>

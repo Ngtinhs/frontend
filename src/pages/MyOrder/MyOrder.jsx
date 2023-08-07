@@ -9,6 +9,7 @@ import ButtonComponent from '../../components/ButtonComponent/ButtonComponent';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useMutationHooks } from '../../hooks/useMutationHook';
 import * as message from '../../components/Message/Message'
+import HelmetComponent from '../../components/HelmetComponent/HelmetComponent';
 
 const MyOrderPage = () => {
   const location = useLocation()
@@ -86,6 +87,7 @@ const MyOrderPage = () => {
 
   return (
     <Loading isLoading={isLoading || isLoadingCancel}>
+      <HelmetComponent title={`Đơn hàng của tôi`} />
       <WrapperContainer>
         <div style={{ height: '100%', width: '1270px', margin: '0 auto' }}>
           <h4>Đơn hàng của tôi</h4>

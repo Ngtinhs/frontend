@@ -12,6 +12,7 @@ import { useMutationHooks } from '../../hooks/useMutationHook'
 import Loading from '../../components/LoadingComponent/Loading'
 import * as message from '../../components/Message/Message'
 import { useEffect } from 'react'
+import HelmetComponent from '../../components/HelmetComponent/HelmetComponent'
 
 const SignUpPage = () => {
   const navigate = useNavigate()
@@ -59,6 +60,7 @@ const SignUpPage = () => {
 
   return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0, 0, 0, 0.53)', height: '100vh' }}>
+      <HelmetComponent title={`Đăng ký`} />
       <div style={{ width: '800px', height: '445px', borderRadius: '6px', background: '#fff', display: 'flex' }}>
         <WrapperContainerLeft>
           <h1>Xin chào</h1>

@@ -1,8 +1,13 @@
 import React from 'react'
+import HelmetComponent from '../../components/HelmetComponent/HelmetComponent'
 
 const NotFoundPage = () => {
   return (
-    <div>NotFoundPage</div>
+
+    <div>
+      <HelmetComponent title={`Trang không tồn tại`} />
+      NotFoundPage
+    </div>
   )
 }
 

@@ -18,6 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import { removeAllOrderProduct } from '../../redux/slides/orderSlide';
 import { PayPalButton } from "react-paypal-button-v2";
 import * as PaymentService from '../../services/PaymentService'
+import HelmetComponent from '../../components/HelmetComponent/HelmetComponent';
 
 const PaymentPage = () => {
   const order = useSelector((state) => state.order)
@@ -242,6 +243,7 @@ const PaymentPage = () => {
 
   return (
     <div style={{ background: '#f5f5fa', with: '100%', height: '100vh' }}>
+      <HelmetComponent title={`Trang thanh toán`} />
       <Loading isLoading={isLoadingAddOrder}>
         <div style={{ height: '100%', width: '1270px', margin: '0 auto' }}>
           <h3>Thanh toán</h3>

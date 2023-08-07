@@ -19,6 +19,7 @@ import Loading from '../../components/LoadingComponent/Loading'
 import { useDebounce } from '../../hooks/useDebounce'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import HelmetComponent from '../../components/HelmetComponent/HelmetComponent'
 
 const HomePage = () => {
   const searchProduct = useSelector((state) => state?.product?.search)
@@ -58,6 +59,7 @@ const HomePage = () => {
 
   return (
     <Loading isLoading={isLoading || loading}>
+      <HelmetComponent title={`Trang chủ`} />
       <div style={{ width: '1270px', margin: '0 auto' }}>
         <WrapperTypeProduct>
           {typeProducts.map((item) => {

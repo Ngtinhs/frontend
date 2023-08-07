@@ -13,6 +13,7 @@ import Loading from '../../components/LoadingComponent/Loading'
 import jwt_decode from "jwt-decode";
 import { useDispatch, useSelector } from 'react-redux'
 import { updateUser } from '../../redux/slides/userSlide'
+import HelmetComponent from '../../components/HelmetComponent/HelmetComponent'
 
 const SignInPage = () => {
   const [isShowPassword, setIsShowPassword] = useState(false)
@@ -20,7 +21,7 @@ const SignInPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-  const user  = useSelector((state) => state.user)
+  const user = useSelector((state) => state.user)
 
   const navigate = useNavigate()
 
@@ -31,9 +32,9 @@ const SignInPage = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      if(location?.state) {
+      if (location?.state) {
         navigate(location?.state)
-      }else {
+      } else {
         navigate('/')
       }
       localStorage.setItem('access_token', JSON.stringify(data?.access_token))
@@ -51,7 +52,7 @@ const SignInPage = () => {
     const storage = localStorage.getItem('refresh_token')
     const refreshToken = JSON.parse(storage)
     const res = await UserService.getDetailsUser(id, token)
-    dispatch(updateUser({ ...res?.data, access_token: token,refreshToken }))
+    dispatch(updateUser({ ...res?.data, access_token: token, refreshToken }))
   }
 
 
@@ -77,6 +78,7 @@ const SignInPage = () => {
 
   return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0, 0, 0, 0.53)', height: '100vh' }}>
+      <HelmetComponent title={`Đăng nhập`} />
       <div style={{ width: '800px', height: '445px', borderRadius: '6px', background: '#fff', display: 'flex' }}>
         <WrapperContainerLeft>
           <h1>Xin chào</h1>
