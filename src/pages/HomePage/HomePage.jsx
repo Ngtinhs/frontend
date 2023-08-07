@@ -1,10 +1,15 @@
 import React from 'react'
 import SliderComponent from '../../components/SliderComponent/SliderComponent'
 import TypeProduct from '../../components/TypeProduct/TypeProduct'
-import { WrapperButtonMore, WrapperProducts, WrapperTypeProduct } from './style'
-import slider1 from '../../assets/images/slider1.webp'
-import slider2 from '../../assets/images/slider2.webp'
-import slider3 from '../../assets/images/slider3.webp'
+import { WrapperButtonMore, WrapperProducts, WrapperTopic, WrapperTypeProduct } from './style'
+import slider1 from '../../assets/images/1.jpg'
+import slider2 from '../../assets/images/2.png'
+import slider3 from '../../assets/images/3.jpg'
+import slider4 from '../../assets/images/4.jpg'
+import slider5 from '../../assets/images/5.jpg'
+import topic1 from '../../assets/images/topic1.png'
+import topic2 from '../../assets/images/topic2.png'
+import topic3 from '../../assets/images/topic3.png'
 import CardComponent from '../../components/CardComponent/CardComponent'
 import { useQuery } from '@tanstack/react-query'
 import * as ProductService from '../../services/ProductService'
@@ -20,7 +25,7 @@ const HomePage = () => {
   const [loading, setLoading] = useState(false)
   const [limit, setLimit] = useState(6)
   const [typeProducts, setTypeProducts] = useState([])
-  
+
   const fetchProductAll = async (context) => {
     const limit = context?.queryKey && context?.queryKey[1]
     const search = context?.queryKey && context?.queryKey[2]
@@ -32,7 +37,7 @@ const HomePage = () => {
 
   const fetchAllTypeProduct = async () => {
     const res = await ProductService.getAllTypeProduct()
-    if(res?.status === 'OK') {
+    if (res?.status === 'OK') {
       setTypeProducts(res?.data)
     }
   }
@@ -43,20 +48,31 @@ const HomePage = () => {
     fetchAllTypeProduct()
   }, [])
 
+  const arrImagesTopic = [topic1, topic2, topic3]
+
   return (
     <Loading isLoading={isLoading || loading}>
       <div style={{ width: '1270px', margin: '0 auto' }}>
         <WrapperTypeProduct>
           {typeProducts.map((item) => {
             return (
-              <TypeProduct name={item} key={item}/>
+              <TypeProduct name={item} key={item} />
             )
           })}
         </WrapperTypeProduct>
       </div>
       <div className='body' style={{ width: '100%', backgroundColor: '#efefef', }}>
         <div id="container" style={{ height: '1000px', width: '1270px', margin: '0 auto' }}>
-          <SliderComponent arrImages={[slider1, slider2, slider3]} />
+          <SliderComponent arrImages={[slider1, slider2, slider3, slider4, slider5]} />
+
+
+          <WrapperTopic>
+            {arrImagesTopic.map((image) => {
+              return (
+                <img key={image} src={image} alt="topic" />
+              )
+            })}
+          </WrapperTopic>
           <WrapperProducts>
             {products?.data?.map((product) => {
               return (
@@ -79,7 +95,7 @@ const HomePage = () => {
           <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
             <WrapperButtonMore
               textbutton={isPreviousData ? 'Load more' : "Xem thêm"} type="outline" styleButton={{
-                border: `1px solid ${products?.total === products?.data?.length ? '#f5f5f5' : '#9255FD'}`, color: `${products?.total === products?.data?.length ? '#f5f5f5' : '#9255FD'}`,
+                border: `1px solid ${products?.total === products?.data?.length ? '#f5f5f5' : '#515154'}`, color: `${products?.total === products?.data?.length ? '#f5f5f5' : '#515154'}`,
                 width: '240px', height: '38px', borderRadius: '4px'
               }}
               disabled={products?.total === products?.data?.length || products?.totalPage === 1}

@@ -15,6 +15,8 @@ import { useState } from 'react';
 import Loading from '../LoadingComponent/Loading';
 import { useEffect } from 'react';
 import { searchProduct } from '../../redux/slides/productSlide';
+import logo from '../../assets/images/logonew.png'
+
 
 
 const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
@@ -23,7 +25,7 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
   const dispatch = useDispatch()
   const [userName, setUserName] = useState('')
   const [userAvatar, setUserAvatar] = useState('')
-  const [search,setSearch] = useState('')
+  const [search, setSearch] = useState('')
   const [isOpenPopup, setIsOpenPopup] = useState(false)
   const order = useSelector((state) => state.order)
   const [loading, setLoading] = useState(false)
@@ -58,17 +60,18 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
   );
 
   const handleClickNavigate = (type) => {
-    if(type === 'profile') {
+    if (type === 'profile') {
       navigate('/profile-user')
-    }else if(type === 'admin') {
+    } else if (type === 'admin') {
       navigate('/system/admin')
-    }else if(type === 'my-order') {
-      navigate('/my-order',{ state : {
+    } else if (type === 'my-order') {
+      navigate('/my-order', {
+        state: {
           id: user?.id,
-          token : user?.access_token
+          token: user?.access_token
         }
       })
-    }else {
+    } else {
       handleLogout()
     }
     setIsOpenPopup(false)
@@ -80,10 +83,10 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
   }
 
   return (
-    <div style={{  heiht: '100%', width: '100%', display: 'flex',background: '#9255FD', justifyContent: 'center' }}>
+    <div style={{ heiht: '100%', width: '100%', display: 'flex', background: '#515154', justifyContent: 'center' }}>
       <WrapperHeader style={{ justifyContent: isHiddenSearch && isHiddenSearch ? 'space-between' : 'unset' }}>
         <Col span={5}>
-          <WrapperTextHeader to='/'>SHOP</WrapperTextHeader>
+          <WrapperTextHeader to='/'><img src={logo} alt="Logo" /></WrapperTextHeader>
         </Col>
         {!isHiddenSearch && (
           <Col span={13}>
@@ -91,9 +94,9 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
               size="large"
               bordered={false}
               textbutton="Tìm kiếm"
-              placeholder="input search text"
+              placeholder="Tìm kiếm sản phẩm"
               onChange={onSearch}
-              backgroundColorButton="#5a20c1"
+              backgroundColorButton="#000"
             />
           </Col>
         )}
@@ -113,7 +116,7 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
               {user?.access_token ? (
                 <>
                   <Popover content={content} trigger="click" open={isOpenPopup}>
-                    <div style={{ cursor: 'pointer',maxWidth: 100, overflow: 'hidden', textOverflow: 'ellipsis' }} onClick={() => setIsOpenPopup((prev) => !prev)}>{userName?.length ? userName : user?.email}</div>
+                    <div style={{ cursor: 'pointer', maxWidth: 100, overflow: 'hidden', textOverflow: 'ellipsis' }} onClick={() => setIsOpenPopup((prev) => !prev)}>{userName?.length ? userName : user?.email}</div>
                   </Popover>
                 </>
               ) : (
@@ -128,7 +131,7 @@ const HeaderComponent = ({ isHiddenSearch = false, isHiddenCart = false }) => {
             </WrapperHeaderAccout>
           </Loading>
           {!isHiddenCart && (
-            <div onClick={() => navigate('/order')} style={{cursor: 'pointer'}}>
+            <div onClick={() => navigate('/order')} style={{ cursor: 'pointer' }}>
               <Badge count={order?.orderItems?.length} size="small">
                 <ShoppingCartOutlined style={{ fontSize: '30px', color: '#fff' }} />
               </Badge>

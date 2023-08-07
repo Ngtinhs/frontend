@@ -12,13 +12,8 @@ export const WrapperHeader = styled(Row)`
 `
 
 export const WrapperTextHeader = styled(Link)`
-    font-size: 18px;
-    color: #fff;
-    font-weight: bold;
-    text-align: left;
-    &:hover {
-        font-size: 18px;
-        color: #fff;
+    img {
+       height: 45px;
     }
 `
 
