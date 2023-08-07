@@ -30,7 +30,7 @@ const NavBarComponent = () => {
         <div>
             <WrapperLableText>DANH MỤC SẢN PHẨM</WrapperLableText>
             <WrapperContent>
-                {products.map((option) => {
+                {products?.map((option) => {
                     return (
                         <TypeProduct name={option} key={option} />
                     )
